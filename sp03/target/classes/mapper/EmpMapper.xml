@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.web.mapper.EmpMapper">
+	<select id="findAll" resultType="employees"
+		parameterType="SearchVO"> <!-- resultType에 대,소문자 구분 없음 -->
+		select * from employees
+		<where>
+			<if test="departmentId !=null">and department_id = #{departmentId}</if>
+			<if test="salary !=null">
+				and salary <![CDATA[ < ]]>
+				#{salary}
+			</if>
+			<if test="ids != null">
+				and employee_id in
+				<foreach collection="ids" item="id" open="("
+					close=")" separator=",">
+					#{id}
+				</foreach>
+			</if>
+
+		</where>
+	</select>
+
+	<select id="findAlltoMap" resultType="map">
+		select employee_id
+		"employee_id",
+		first_name "first_name",
+		last_name
+		from employees
+	</select>
+
+	<select id="getCount" resultType="Employees">
+		select department_id, count(*)
+		cnt
+		from employees group by department_id
+	</select>
+
+	<insert id="insert" parameterType="employees"> <!--값을 여러개 받는 거면 vo로 받는게 좋다. -->
+		insert into employees ( <!-- null이 인것만 선택 -->
+		EMPLOYEE_ID,
+		LAST_NAME,
+		EMAIL,
+		HIRE_DATE,
+		JOB_ID)
+		values(
+		#{employeeId},
+		#{lastName},
+		#{email},
+		#{hireDate},
+		#{jobId}
+		)
+	</insert>
+
+	<update id="updateFirstName" parameterType="employees"><!-- parameter생략 가능 -->
+		update employees set
+		first_name = #{firstName}
+		where employee_id =
+		#{employeeId}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from employees
+		where department_id = #{value} <!-- 값이 하나일때는 변수를 아무거나 
+			써도 상관없음 -->
+	</delete>
+</mapper>
