@@ -22,4 +22,6 @@ public class Employees { // VO
 	private String managerId;
 	private String departmentId;
 	private String cnt;
+
+	Departments department; // 필드 추가
 }
