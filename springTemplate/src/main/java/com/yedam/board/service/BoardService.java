@@ -8,7 +8,7 @@ import lombok.Data;
 
 public interface BoardService {
 
-	public List<BoardVO> getList(); // 목록
+	public List<BoardVO> getList(Criteria cri); // 목록
 
 	public void insert(BoardVO vo); // 등록
 
@@ -17,6 +17,8 @@ public interface BoardService {
 	public int update(BoardVO board); // 수정
 	
 	public int delete(Long bno); // 삭제
+
+	public Long getTotal(Criteria cri);
 	
 
 

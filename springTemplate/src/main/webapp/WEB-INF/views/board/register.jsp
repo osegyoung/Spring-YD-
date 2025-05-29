@@ -3,13 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<%@include file="/WEB-INF/views/includes/header.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
 <body>
 	<div class="row">
 		<div class="col-lg-12">
@@ -49,6 +44,4 @@
 		<!-- end panel -->
 		</div>
 		<!-- /.row -->
-		
-</body>
-</html>
+	<%@include file="/WEB-INF/views/includes/footer.jsp" %>	

@@ -1,7 +1,5 @@
 package com.yedam.board.web;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +10,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.board.service.BoardService;
 import com.yedam.board.service.BoardVO;
+import com.yedam.board.service.Criteria;
+import com.yedam.board.service.PageDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,10 +34,15 @@ public class BoardController {
 	 */
 	// 목록
 	@GetMapping("/list")
-	public String getMethodName(Model model, BoardVO board) {
-		model.addAttribute("list", boardService.getList());
+	public String getMethodName(Model model, Criteria cri) {
+		model.addAttribute("list", boardService.getList(cri));
+		//paing 처리
+		long total = boardService.getTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		return "board/list";
 	}
+	
+	
 
 	// 등록페이지로 이동
 	@GetMapping("/register")
@@ -46,8 +51,9 @@ public class BoardController {
 
 	// 등록 처리하고 목록으로 이동
 	@PostMapping("register")
-	public String register(BoardVO vo) {
+	public String register(BoardVO vo, RedirectAttributes rttr) {
 		boardService.insert(vo);
+		rttr.addFlashAttribute("result", vo.getBno());
 		return "redirect:list";
 	}
 
@@ -79,4 +85,5 @@ public class BoardController {
 		boardService.delete(bno);
 		return "redirect:list"; // 상대경로('/'가 없는 경우)
 	}
+	
 }

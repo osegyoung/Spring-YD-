@@ -3,10 +3,11 @@ package com.yedam.board.mapper;
 import java.util.List;
 
 import com.yedam.board.service.BoardVO;
+import com.yedam.board.service.Criteria;
 
 public interface BoardMapper {
 
-	public List<BoardVO> getList();
+	public List<BoardVO> getList(Criteria cri);
 
 	public void insert(BoardVO board);
 
@@ -18,7 +19,7 @@ public interface BoardMapper {
 	
 	public int delete(Long bno);
 	
-
+	public Long getTotal(Criteria cri);
 	
 
 }

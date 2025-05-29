@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
+<%@include file="/WEB-INF/views/includes/header.jsp"%>
 
 <div class="row">
 	<div class="col-lg-12">
@@ -43,9 +43,8 @@
 				</div>
 
 
-				<a href="modify?bno=${board.bno}">수정</a> 
-				<a href="list">목록</a>
-				<a href="remove?bno=${board.bno}">삭제</a> 
+				<a href="modify?bno=${board.bno}">수정</a> <a href="list">목록</a> <a
+					href="remove?bno=${board.bno}">삭제</a>
 			</div>
 
 
@@ -81,3 +80,4 @@
 					});
 				});
 			</script>
+			<%@include file="/WEB-INF/views/includes/footer.jsp"%>
