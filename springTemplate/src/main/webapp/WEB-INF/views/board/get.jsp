@@ -46,6 +46,37 @@
 				<a href="modify?bno=${board.bno}">수정</a> <a href="list">목록</a> <a
 					href="remove?bno=${board.bno}">삭제</a>
 			</div>
+			<!--end panel body -->
+			<hr>
+			<div>
+				<!-- 댓글 입력 폼 -->
+				<div class="mb-3">
+					<textarea id="txtReply" class="form-control mb-2" rows="3"
+						placeholder="댓글을 입력하세요..."></textarea>
+					<button id="btnReplyAdd" class="btn btn-primary">댓글 작성</button>
+				</div>
+
+				<hr />
+
+				<!-- 댓글 리스트 -->
+				<div class="reply mb-4">
+					<div class="d-flex justify-content-between">
+						<strong>user123</strong> <small class="text-muted">2025-05-22</small>
+					</div>
+					<p class="mb-1">좋은 글이네요!</p>
+					<div>
+						<button class="btn btn-sm btn-outline-secondary">수정</button>
+						<button class="btn btn-sm btn-outline-danger">삭제</button>
+					</div>
+				</div>
+			</div>
+			<script src="/resources/js/get.js"></script>
+			<script>document.querySelector("#btnReplyAdd").addEventListener("click" , ()=>{
+				const txtReply = document.querySelector("#txtReply").value;
+				const data = {reply:txtReply, replyer:"홍길동"}
+				register(data)
+			})
+			</script>
 
 
 			<form id='operForm' action="/boad/modify" method="get">
