@@ -10,26 +10,43 @@ http://www.springframework.org/schema/context https://www.springframework.org/sc
 http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
 http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+	<bean id="webexpressionHandler"
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="loginSuccessHandler"
+		class="com.company.common.security.CustomLoginSuccessHandler"></bean>
 	<security:http pattern="/css/" security="none" />
 	<security:http>
-		<security:intercept-url pattern="/all" access="permitAll()" />
-		<security:intercept-url pattern="/login" access="permitAll()" />
-		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/**" access="isAuthenticated()" />
-		<security:form-login login-page="/login" />
-		<!--  <security:access-denied-handler error-page="/accessError"/>-->
-		<security:access-denied-handler ref="deniedhandler"/>
-		
+		<security:intercept-url pattern="/"
+			access="permitAll()" />
+		<security:intercept-url pattern="/all"
+			access="permitAll()" />
+		<security:intercept-url pattern="/login"
+			access="permitAll()" />
+		<security:intercept-url pattern="/admin"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**"
+			access="isAuthenticated()" />
+		<security:form-login login-page="/login"
+			authentication-success-handler-ref="loginSuccessHandler"
+			default-target-url="/all" />
+		<!-- <security:access-denied-handler error-page="/accessError"/> -->
+		<security:access-denied-handler ref="deniedhandler" />
+		<!-- <security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/" 
+			/> -->
+		<!-- <security:csrf disabled="true"/> -->
+
 	</security:http>
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="user" password="{noop}1234"
-					authorities="ROLE_USER" />
-				<security:user name="admin" password="{noop}1234"
-					authorities="ROLE_ADMIN" />
-			</security:user-service>
+		<security:authentication-provider
+			user-service-ref="customUserDetailService">
+			<security:password-encoder hash="bcrypt" />
+			<!-- <security:user-service> <security:user name="user" password="{noop}1234" 
+				authorities="ROLE_USER" /> <security:user name="admin" password="{noop}1234" 
+				authorities="ROLE_ADMIN" /> </security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>

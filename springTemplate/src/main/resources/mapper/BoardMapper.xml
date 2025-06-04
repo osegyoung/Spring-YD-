@@ -4,29 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.board.mapper.BoardMapper">
 
-	<sql id="criteria">
-	
-	
-			<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-				<foreach item='type' collection="typeArr">
-					<trim prefix="OR">
-						<choose>
-							<when test="type == 'T'.toString()">
-								title like '%'||#{keyword}||'%'
-							</when>
-							<when test="type == 'C'.toString()">
-								content like '%'||#{keyword}||'%'
-							</when>
-							<when test="type == 'W'.toString()">
-								writer like '%'||#{keyword}||'%'
-							</when>
-						</choose>
-					</trim>
-				</foreach>
-			</trim>
-	</sql>
-
-
 	<select id="getList"
 		resultType="com.yedam.board.service.BoardVO">
    select
@@ -70,17 +47,6 @@
 		#{bno}
 	</select>
 
-	<update id="update">
-		update tbl_board
-		set title=#{title},
-		content=#{content},
-		writer=#{writer},
-		updateDate=sysdate
-		where bno=#{bno}
-	</update>
-
-	<delete id="delete">
-		delete from tbl_board where bno = #{bno}
-	</delete>
+	
 
 </mapper>

@@ -3,7 +3,7 @@
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout
-				pattern="%d{HH:mm:ss} %-5level %c{1} %M (%L) - %m%n" />
+				pattern="%d{HH:mm:ss} %-5level %c %M (%L) - %m%n" />
 		</Console>
 	</Appenders>
 
@@ -26,12 +26,22 @@
 		<Logger name="jdbc.audit" level="warn" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
+		
+		<Logger name="jdbc.connection" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
 
 		<Logger name="jdbc.resultset" level="warn" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
+		
+		<Logger name="org.springframework.security" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		
 		<Root level="info">
 			<AppenderRef ref="Console" />
 		</Root>
+		
 	</Loggers>
 </Configuration>

@@ -20,29 +20,7 @@
 
   </insert>
 
-  <select id="read" resultType="com.yedam.board.service.ReplyVO">
-
-	select * 
-	  from tbl_reply 
-	 where rno = #{rno}
-
-  </select>
-
-
-  <delete id="delete">
-
-	delete from tbl_reply where rno = #{rno}
-
-  </delete>
-
-  <update id="update">
-
-	update tbl_reply set 
-	       reply = #{reply},
-	       updatedate = sysdate 
-	 where rno = #{rno}
-
-  </update>
+ 
 
 
   <select id="getList" resultType="com.yedam.board.service.ReplyVO">
